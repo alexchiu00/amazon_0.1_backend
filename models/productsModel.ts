@@ -21,9 +21,10 @@ const ProductSchema = new Schema<Product>({
     },
     rating: {
         type: Object
-    }
-},
-    { timestamps: true }
+    },
+}, {
+    versionKey: false
+}
 )
 
 const ProductModel = model<Product>('products', ProductSchema)
