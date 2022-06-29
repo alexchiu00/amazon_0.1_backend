@@ -1,11 +1,24 @@
+import { ProductsController } from './controllers/productsController';
 import cors from "cors";
 import express from "express";
-import http from "http";
 import { env } from "process";
 import { logger } from "./logger";
+import { ProductsService } from './services/productsService';
+import ProductModel from './models/productsModel';
+import mongoose from 'mongoose';
+import productsRoutes from './routers/productsRoutes';
+import seed from './seeds/createProducts';
 
 export const app = express();
-const server = new http.Server(app);
+
+mongoose
+  .connect(env.MONGODB!)
+  .then(() => {
+    console.log('connected to db');
+  })
+  .catch((err) => {
+    console.log(err.message);
+  });
 
 app.use(
   (req: express.Request, res: express.Response, next: express.NextFunction) => {
@@ -18,16 +31,21 @@ app.use(express.json());
 
 app.use(
   cors({
-    origin: [process.env.FRONTEND_URL!],
+    origin: [env.FRONTEND_URL!],
   })
 );
 
-app.use(express.static("public"));
-app.use(express.static("public", { extensions: ["html"] }));
+const productsController = new ProductsController(
+  new ProductsService(ProductModel)
+)
 
-app.set("trust proxy", 1);
+app.use(productsRoutes);
+
 const PORT = env.PORT;
 
-server.listen(PORT, () => {
-  logger.info(`The server is ready: http://localhost:${PORT}/`);
+seed()
+app.listen(PORT, () => {
+  logger.info(`The server is ready: http://localhost:${PORT}`);
 });
+
+export { productsController }
