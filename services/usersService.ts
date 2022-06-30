@@ -2,7 +2,7 @@ import { Model, Types } from "mongoose";
 import { IUser } from "../types/users";
 import generateToken from "../utils/generateToken";
 
-export class usersService {
+export class UsersService {
     constructor(private usersModel: Model<IUser>) {}
 
     loginService = async (email: string, password: string) => { 

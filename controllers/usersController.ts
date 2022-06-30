@@ -1,9 +1,9 @@
-import { usersService } from '../services/usersService';
+import { UsersService } from '../services/usersService';
 import { AuthRequest } from '../types/express';
 import { Request, Response} from "express";
 
 export class UsersController {
-    constructor(private usersService: usersService){}
+    constructor(private usersService: UsersService){}
 
     login = async (req: Request, res: Response ) => {
         const { email ,password } = req.body

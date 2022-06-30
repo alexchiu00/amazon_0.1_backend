@@ -10,8 +10,10 @@ import mongoose from 'mongoose';
 import productsRoutes from './routers/productsRoutes';
 import usersRoutes from './routers/usersRoutes'
 import seeds from './seeds/seeds';
-import { usersService } from './services/usersService';
+import { UsersService } from './services/usersService';
 import UserModel from './models/usersModel';
+import { StripeController } from './controllers/stripeController';
+import { StripeService } from './services/stripeService';
 
 export const app = express();
 
@@ -23,6 +25,7 @@ mongoose
   .catch((err) => {
     console.log(err.message);
   });
+const stripe = require('stripe')(env.STRIPE_SECRET_KEY)
 
 app.use(
   (req: express.Request, res: express.Response, next: express.NextFunction) => {
@@ -44,7 +47,11 @@ const productsController = new ProductsController(
 )
 
 const usersController = new UsersController(
-  new usersService(UserModel)
+  new UsersService(UserModel)
+)
+
+const stripeController = new StripeController(
+  new StripeService(stripe)
 )
 
 app.use(productsRoutes);
@@ -57,4 +64,4 @@ app.listen(PORT, () => {
   logger.info(`The server is ready: http://localhost:${PORT}`);
 });
 
-export { productsController, usersController }
+export { productsController, usersController, stripeController ,stripe}

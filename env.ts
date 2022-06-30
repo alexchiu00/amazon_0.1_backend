@@ -7,5 +7,7 @@ export const env = {
   NODE_ENV: process.env.NODE_ENV || "development",
   LOGGING_LEVEL: process.env.LOGGING_LEVEL || "silly",
   MONGODB: process.env.MONGODB,
-  JWT_SECRET: process.env.JWT_SECRET
+  JWT_SECRET: process.env.JWT_SECRET,
+  STRIPE_PUBLISHABLE_KEY: process.env.STRIPE_PUBLISHABLE_KEY,
+  STRIPE_SECRET_KEY: process.env.STRIPE_SECRET_KEY
 };
