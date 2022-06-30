@@ -7,4 +7,6 @@ productsRoutes.get('/api/products', (req, res) => {
     productsController.getProducts(req, res)
 })
 
+
+
 export default productsRoutes

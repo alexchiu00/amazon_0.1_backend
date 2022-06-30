@@ -6,5 +6,6 @@ export const env = {
   FRONTEND_URL: process.env.FRONTEND_URL,
   NODE_ENV: process.env.NODE_ENV || "development",
   LOGGING_LEVEL: process.env.LOGGING_LEVEL || "silly",
-  MONGODB: process.env.MONGODB
+  MONGODB: process.env.MONGODB,
+  JWT_SECRET: process.env.JWT_SECRET
 };

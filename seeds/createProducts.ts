@@ -2,7 +2,7 @@ import { logger } from "../logger";
 import productsJson from "./products.json"
 import ProductModel from "../models/productsModel";
 
-const seed = async () => {
+const createProducts = async () => {
     const data = await ProductModel.find()
     if (data.length !== 0) {
         return
@@ -23,4 +23,4 @@ const seed = async () => {
 
 }
 
-export default seed
+export default createProducts

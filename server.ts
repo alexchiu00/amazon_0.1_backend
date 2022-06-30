@@ -1,4 +1,5 @@
 import { ProductsController } from './controllers/productsController';
+import { UsersController } from './controllers/usersController'
 import cors from "cors";
 import express from "express";
 import { env } from "process";
@@ -7,7 +8,10 @@ import { ProductsService } from './services/productsService';
 import ProductModel from './models/productsModel';
 import mongoose from 'mongoose';
 import productsRoutes from './routers/productsRoutes';
-import seed from './seeds/createProducts';
+import usersRoutes from './routers/usersRoutes'
+import seeds from './seeds/seeds';
+import { usersService } from './services/usersService';
+import UserModel from './models/usersModel';
 
 export const app = express();
 
@@ -39,13 +43,18 @@ const productsController = new ProductsController(
   new ProductsService(ProductModel)
 )
 
+const usersController = new UsersController(
+  new usersService(UserModel)
+)
+
 app.use(productsRoutes);
+app.use(usersRoutes)
 
 const PORT = env.PORT;
 
-seed()
+seeds()
 app.listen(PORT, () => {
   logger.info(`The server is ready: http://localhost:${PORT}`);
 });
 
-export { productsController }
+export { productsController, usersController }

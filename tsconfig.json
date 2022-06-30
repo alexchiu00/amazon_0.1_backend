@@ -15,11 +15,17 @@
       "strictNullChecks": true,
       "suppressImplicitAnyIndexErrors": true,
       "noUnusedLocals": true,
+      "typeRoots": 
+        [
+          "./node_modules/*",
+          "./types/*"
+        ]
+      
   },
   "exclude": [
       "node_modules",
       "build",
       "scripts",
       "index.js"
-  ]
+  ],
 }
