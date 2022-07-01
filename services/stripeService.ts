@@ -52,31 +52,18 @@ export class StripeService {
   };
 
   fulfillOrder = async (session: any) => {
-    // const order = new OrdersModel({
-    //   id: session.id,
-    //   email: session.metadata.email,
-    //   shippingAddress: {
-    //     address: `${session.data.customer_details.address.line1} / ${session.data.customer_details.address.line2}`,
-    //     city: session.data.customer_details.address.city,
-    //     postalCode: session.data.customer_details.address.postal_code,
-    //     country: session.data.customer_details.address.country,
-    //   },
-    //   totalPrice: session.amount_total / 100,
-    //   shippingPrice: session.total_details.amount_shipping / 100,
-    //   images: JSON.parse(session.metadata.images),
-    // });
     const order = new OrdersModel({
-      id: "session.id",
-      email: "session.metadata.email",
+      id: session.id,
+      email: session.metadata.email,
       shippingAddress: {
-        address: "sdfgfdsgsdf",
-        city: "a",
-        postalCode: "a",
-        country: "a",
+        address: `${session.data.customer_details.address.line1} / ${session.data.customer_details.address.line2}`,
+        city: session.data.customer_details.address.city,
+        postalCode: session.data.customer_details.address.postal_code,
+        country: session.data.customer_details.address.country,
       },
-      totalPrice: 100,
-      shippingPrice: 100,
-      images: ["aa", "aa"],
+      totalPrice: session.amount_total / 100,
+      shippingPrice: session.total_details.amount_shipping / 100,
+      images: JSON.parse(session.metadata.images),
     });
     const result = await order.save();
     console.log("=============", result);
